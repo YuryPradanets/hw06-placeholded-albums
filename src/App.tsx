@@ -19,8 +19,8 @@ function App() {
   return (  
     <div className="App">  
       <header className="App-header">  
-        НАЧНЕМ-С  
-        <AlbumList albums={albums} /> {/* Передаем данные альбомов в компонент AlbumList */}  
+        <p>НАЧНЕМ-С </p>
+        {/* <AlbumList albums={albums} /> Передаем данные альбомов в компонент AlbumList   */}
       </header>  
     </div>  
   );  
