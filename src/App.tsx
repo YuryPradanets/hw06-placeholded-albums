@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.css';  
+import AlbumList from './components/AlbumList';  
+import { Album } from './types';  
+import { useEffect, useState } from 'react';  // Добавляем импорт нужных хуков из React  
+import { getAlbums } from './api/albumsApi';  // Предполагается, что у вас есть функция для получения данных альбомов  
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+function App() {  
+  const [albums, setAlbums] = useState<Album[]>([]); // Создаем состояние для хранения данных альбомов  
+
+  useEffect(() => {  
+    const fetchAlbums = async () => {  
+      const data = await getAlbums(); // Получаем данные альбомов с помощью функции getAlbums  
+      setAlbums(data); // Устанавливаем данные альбомов в состояние  
+    };  
+
+    fetchAlbums();  
+  }, []);  
+
+  return (  
+    <div className="App">  
+      <header className="App-header">  
+        НАЧНЕМ-С  
+        <AlbumList albums={albums} /> {/* Передаем данные альбомов в компонент AlbumList */}  
+      </header>  
+    </div>  
+  );  
+}  
 
 export default App;
