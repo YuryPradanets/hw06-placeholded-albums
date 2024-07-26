@@ -1,27 +1,23 @@
-import './App.css';  
+import React, { useEffect } from 'react';  
+import { useDispatch } from 'react-redux';  
+import { fetchAlbums } from './features/albumsSlice';  
+import { fetchUsers } from './features/usersSlice';  
 import AlbumList from './components/AlbumList';  
-import { Album } from './types';  
-import { useEffect, useState } from 'react';  // Добавляем импорт нужных хуков из React  
-import { getAlbums } from './api/albumsApi';  // Предполагается, что у вас есть функция для получения данных альбомов  
+import UserList from './components/UserList';  
 
 function App() {  
-  const [albums, setAlbums] = useState<Album[]>([]); // Создаем состояние для хранения данных альбомов  
+  const dispatch = useDispatch();  
 
   useEffect(() => {  
-    const fetchAlbums = async () => {  
-      const data = await getAlbums(); // Получаем данные альбомов с помощью функции getAlbums  
-      setAlbums(data); // Устанавливаем данные альбомов в состояние  
-    };  
-
-    fetchAlbums();  
-  }, []);  
+    dispatch(fetchAlbums());  
+    dispatch(fetchUsers());  
+  }, [dispatch]);  
 
   return (  
-    <div className="App">  
-      <header className="App-header">  
-        <p>НАЧНЕМ-С </p>
-        {/* <AlbumList albums={albums} /> Передаем данные альбомов в компонент AlbumList   */}
-      </header>  
+    <div>  
+      <h1>Placeholder Albums</h1>  
+      <AlbumList />  
+      <UserList />  
     </div>  
   );  
 }  

@@ -19,5 +19,12 @@ export interface User {
   username: string;  
   email: string;  
 }  
+interface UserState {  
+  users: User[];  
+  loading: boolean;  
+  error: string | null;  
+}  
 
-// Другие необходимые типы данных
+export interface RootState {  
+  users: UserState;  
+}  

@@ -1,27 +1,19 @@
-import React, { useEffect, useState } from 'react';  
-import { Album } from '../types';  
-import { getAlbums } from '../api/albumsApi';  
+import { useSelector } from 'react-redux';  
 
-interface AlbumListProps {  
-  albums: Album[];  
-}
+const AlbumList = () => {  
+  const { albums, loading, error } = useSelector((state) => state.albums);  
 
-const AlbumList: React.FC<AlbumListProps> = () => {  
-  const [albums, setAlbums] = useState<Album[]>([]);  
-
-  useEffect(() => {  
-    const fetchAlbums = async () => {  
-      const data = await getAlbums();  
-      setAlbums(data);  
-    };  
-
-    fetchAlbums();  
-  }, []);  
+  if (loading) return <p>Loading...</p>;  
+  if (error) return <p>Error: {error}</p>;  
 
   return (  
     <div>  
-       <h1>My Album Collection</h1>  
-      <AlbumList albums={albums} />
+      <h2>Albums</h2>  
+      <ul>  
+        {albums.map((album) => (  
+          <li key={album.id}>{album.title}</li>  
+        ))}  
+      </ul>  
     </div>  
   );  
 };  
