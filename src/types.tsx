@@ -25,6 +25,14 @@ interface UserState {
   error: string | null;  
 }  
 
+
+interface AlbumsState {  
+  albums: Album[];  
+  loading: boolean;  
+  error: string | null;  
+}  
+
 export interface RootState {  
-  users: UserState;  
+   users: UserState;   
+  albums: AlbumsState;
 }  

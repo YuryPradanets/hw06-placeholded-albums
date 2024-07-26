@@ -1,7 +1,8 @@
-import { useSelector } from 'react-redux';  
+import { useSelector } from 'react-redux';
+import { Album, RootState } from '../types';
 
-const AlbumList = () => {  
-  const { albums, loading, error } = useSelector((state) => state.albums);  
+export const AlbumList = () => {  
+  const { albums, loading, error } = useSelector((state: RootState) => state.albums);  
 
   if (loading) return <p>Loading...</p>;  
   if (error) return <p>Error: {error}</p>;  
@@ -10,12 +11,10 @@ const AlbumList = () => {
     <div>  
       <h2>Albums</h2>  
       <ul>  
-        {albums.map((album) => (  
+        {albums.map((album: Album) => (  
           <li key={album.id}>{album.title}</li>  
         ))}  
       </ul>  
     </div>  
   );  
-};  
-
-export default AlbumList;
+};
