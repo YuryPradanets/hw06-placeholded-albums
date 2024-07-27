@@ -1,25 +1,21 @@
-import React, { useEffect } from 'react';  
-import { useDispatch } from 'react-redux';  
-import { fetchAlbums } from './features/albumsSlice';  
-import { fetchUsers } from './features/usersSlice';  
-import AlbumList from './components/AlbumList';  
-import UserList from './components/UserList';  
+import React from 'react';  
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';  
+import { Provider } from 'react-redux';  
+import {store} from './store';  
+import {AlbumDetail} from './pages/AlbumDetailPage';  
+import {UserDetail} from './pages/UsersPage';  
+import {UserProfile} from './pages/UserDetailsPage';  
 
-function App() {  
-  const dispatch = useDispatch();  
-
-  useEffect(() => {  
-    dispatch(fetchAlbums());  
-    dispatch(fetchUsers());  
-  }, [dispatch]);  
-
+export const App: React.FC = () => {  
   return (  
-    <div>  
-      <h1>Placeholder Albums</h1>  
-      <AlbumList />  
-      <UserList />  
-    </div>  
+    <Provider store={store}>  
+      <Router>  
+        <Routes>  
+          <Route path="/albums/:id" element={<AlbumDetail />} />  
+          <Route path="/users" element={<UserDetail/>} />  
+          <Route path="/users/:id" element={<UserProfile />} />  
+        </Routes>  
+      </Router>  
+    </Provider>  
   );  
-}  
-
-export default App;
+};
