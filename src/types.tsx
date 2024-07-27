@@ -20,9 +20,10 @@ export interface Photo {
   title: string;  
   url: string;  
   thumbnailUrl: string;  
-}
+}  
+
 export interface PhotosState {  
-  photos: Photo[];  
+  list: Photo[];  
   loading: boolean;  
   error: string | null;
 }  

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';  
 import axios from 'axios';  
+import { PhotosState} from '../types';
 
 const API_URL = 'https://jsonplaceholder.typicode.com';  
 
@@ -8,13 +9,15 @@ export const fetchPhotosByAlbumId = createAsyncThunk('photos/fetchPhotosByAlbumI
   return response.data;  
 });  
 
+const initialState: PhotosState = { 
+  list: [],  
+  loading: false,  
+  error: null,  
+};  
+
 const photosSlice = createSlice({  
   name: 'photos',  
-  initialState: {  
-    list: [],  
-    loading: false,  
-    error: null,  
-  },  
+  initialState,  
   reducers: {},  
   extraReducers: (builder) => {  
     builder  
@@ -24,9 +27,10 @@ const photosSlice = createSlice({
       .addCase(fetchPhotosByAlbumId.fulfilled, (state, action) => {  
         state.loading = false;  
         state.list = action.payload;  
+        state.error = null;
       })  
       .addCase(fetchPhotosByAlbumId.rejected, (state, action) => {  
-        state.loading = false;
+        state.loading = false;  
         state.error = action.error.message || 'Что-то пошло не так';  
       });  
   },  
